@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1033968372558",
+    "project_id": "krushit-medical",
+    "storage_bucket": "krushit-medical.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033968372558:android:03a64891855624a15e2c1f",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnq_oSCamESNIY--I4bYpLzQNSRUJMPUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033968372558:android:91a86f08d45ac9c05e2c1f",
+        "android_client_info": {
+          "package_name": "com.example.krushit_medical"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnq_oSCamESNIY--I4bYpLzQNSRUJMPUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
