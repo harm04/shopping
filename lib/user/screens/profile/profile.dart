@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:krushit_medical/provider/user_provider.dart';
 import 'package:krushit_medical/services/auth_services.dart';
-import 'package:krushit_medical/widgets/admin_bottom_bar.dart';
+import 'package:krushit_medical/user/screens/auth/adminAuth/admin_auth.dart';
+import 'package:krushit_medical/user/screens/myOrders/my_orders.dart';
+
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -81,9 +83,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const Divider(),
           GestureDetector(
             onTap: () {
-              // Navigator.push(context, MaterialPageRoute(builder: (context) {
-              //   return const MyOrderScreen();
-              // }));
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const MyOrdersPage();
+              }));
             },
             child: ListTile(
               leading: Image.asset(
@@ -133,7 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const AdminBottomBAr();
+                return const AdminAuthPage();
               }));
             },
             child: ListTile(

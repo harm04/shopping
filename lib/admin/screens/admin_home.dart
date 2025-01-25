@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:krushit_medical/models/product.dart';
 import 'package:krushit_medical/services/admin_service.dart';
+import 'package:krushit_medical/services/auth_services.dart';
 import 'package:krushit_medical/widgets/post_product.dart';
 import 'package:krushit_medical/widgets/product_card.dart';
 
@@ -78,9 +79,9 @@ class _AdminHomeState extends State<AdminHome> {
 
   @override
   Widget build(BuildContext context) {
-    // void signOut() {
-    //   AuthServices().signOut(context);
-    // }
+    void signOut() {
+      AuthServices().signput();
+    }
 
     return Scaffold(
       appBar: PreferredSize(
@@ -96,16 +97,16 @@ class _AdminHomeState extends State<AdminHome> {
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
-            // actions: [
-            //   TextButton(
-            //       onPressed: () {
-            //         // signOut();
-            //       },
-            //       child: const Text(
-            //         'Switch to user',
-            //         style: TextStyle(color: Colors.white),
-            //       ))
-            // ],
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    signOut();
+                  },
+                  child: const Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.white),
+                  ))
+            ],
           )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -135,8 +136,7 @@ class _AdminHomeState extends State<AdminHome> {
             return const Center(child: Text('No products available.'));
           } else {
             List<Product> products = snapshot.data!.docs
-                .map((doc) =>
-                    Product.fromJson(doc.data()))
+                .map((doc) => Product.fromJson(doc.data()))
                 .toList();
 
             return GridView.builder(

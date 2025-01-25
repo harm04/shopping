@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:krushit_medical/models/user_model.dart';
+import 'package:krushit_medical/utils/showOTPDialoug.dart';
+import 'package:krushit_medical/utils/snackbar.dart';
 
 class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -11,6 +14,10 @@ class AuthServices {
     DocumentSnapshot snap =
         await _firestore.collection('Users').doc(currentUser.uid).get();
     return UserModel.fromSnap(snap);
+  }
+
+  void signput() async {
+    await _auth.signOut();
   }
 
   Future<String> signUp({
@@ -28,7 +35,7 @@ class AuthServices {
         UserCredential _cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
         UserModel userModel = UserModel(
-          profImage: '',
+            profImage: '',
             email: email,
             password: password,
             firstName: firstName,
@@ -80,4 +87,29 @@ class AuthServices {
     }
     return res;
   }
+
+  // Future<void> phoneSignin(BuildContext context, String phoneNumber) async {
+  //   TextEditingController codeController = TextEditingController();
+  //   await _auth.verifyPhoneNumber(
+  //       phoneNumber: phoneNumber,
+  //       verificationCompleted: (PhoneAuthCredential creadintial) async {
+  //         await _auth.signInWithCredential(creadintial);
+  //       },
+  //       verificationFailed: (e) {
+  //         showSnackbar(e.message.toString(), context);
+  //       },
+  //       codeSent: ((String verificationId, int? resendToken) async {
+  //         showOTPDialoug(
+  //             context: context,
+  //             codeController: codeController,
+  //             onpressed: () async {
+  //               PhoneAuthCredential creadintial = PhoneAuthProvider.credential(
+  //                   verificationId: verificationId,
+  //                   smsCode: codeController.text.trim());
+  //               await _auth.signInWithCredential(creadintial);
+  //               Navigator.pop(context);
+  //             });
+  //       }),
+  //       codeAutoRetrievalTimeout: (String verificationId) {});
+  // }
 }

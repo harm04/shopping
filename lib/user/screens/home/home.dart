@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:krushit_medical/models/user_model.dart';
 import 'package:krushit_medical/provider/user_provider.dart';
+import 'package:krushit_medical/services/auth_services.dart';
 import 'package:krushit_medical/widgets/carousel_image.dart';
 import 'package:krushit_medical/widgets/change_address.dart';
 import 'package:krushit_medical/widgets/deal_of_day.dart';
@@ -55,15 +56,15 @@ class _HomePageState extends State<HomePage> {
             ),
             actions: [
               GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    AuthServices().logout();
+                  },
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 18.0),
-                    child: Image.asset(
-                      'assets/icons/ic_bell.png',
-                      height: 26,
-                      color: Colors.white,
-                    ),
-                  )),
+                      padding: const EdgeInsets.only(right: 18.0),
+                      child: Text(
+                        'logout',
+                        style: TextStyle(color: Colors.white),
+                      ))),
             ],
           )),
       body: ListView(

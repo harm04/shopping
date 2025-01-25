@@ -5,7 +5,6 @@ import 'package:krushit_medical/provider/user_provider.dart';
 import 'package:krushit_medical/utils/snackbar.dart';
 import 'package:provider/provider.dart';
 
-
 class Cart extends StatefulWidget {
   @override
   _CartState createState() => _CartState();
@@ -22,22 +21,25 @@ class _CartState extends State<Cart> {
         title: Text('Your Cart'),
       ),
       body: StreamBuilder<DocumentSnapshot>(
-        stream: FirebaseFirestore.instance.collection('Users').doc(userId).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('Users')
+            .doc(userId)
+            .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
-          
+
           var userDoc = snapshot.data!;
           List<String> cartIds = List<String>.from(userDoc['cart'] ?? []);
-          
+
           return FutureBuilder<List<Product>>(
             future: _fetchCartProducts(cartIds),
             builder: (context, cartSnapshot) {
               if (!cartSnapshot.hasData) {
                 return Center(child: Text('No item in cart'));
               }
-              
+
               var productsInCart = cartSnapshot.data!;
               return ListView.builder(
                 itemCount: productsInCart.length,
@@ -70,20 +72,23 @@ class _CartState extends State<Cart> {
   void _removeFromCart(BuildContext context, Product product) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
-      final userRef = FirebaseFirestore.instance.collection('Users').doc(userProvider.getUser.uid);
-      
+      final userRef = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userProvider.getUser.uid);
+
       await userRef.update({
         'cart': FieldValue.arrayRemove([product.id]),
       });
-      
+
       showSnackbar('Product removed from cart', context);
     } catch (e) {
-      showSnackbar('Error removing product from cart: ${e.toString()}', context);
+      showSnackbar(
+          'Error removing product from cart: ${e.toString()}', context);
     }
   }
 }
 
-class CartItemWidget extends StatelessWidget {
+class CartItemWidget extends StatefulWidget {
   final Product product;
   final VoidCallback onRemove;
 
@@ -93,39 +98,94 @@ class CartItemWidget extends StatelessWidget {
   });
 
   @override
+  State<CartItemWidget> createState() => _CartItemWidgetState();
+}
+
+bool isLoading = false;
+
+class _CartItemWidgetState extends State<CartItemWidget> {
+  @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          children: [
-            Image.asset(
-              product.images.isNotEmpty ? product.images[0] : '',
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
-            ),
-            SizedBox(width: 15),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    return isLoading
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : Card(
+            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
                 children: [
-                  Text(product.name, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 5),
-                  Text('\$${product.price}', style: TextStyle(fontSize: 14)),
-                  SizedBox(height: 5),
-                  Text('Seller: ${product.seller}', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                  Image.asset(
+                    widget.product.images.isNotEmpty
+                        ? widget.product.images[0]
+                        : '',
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.product.name,
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                        SizedBox(height: 5),
+                        Text('\$${widget.product.price}',
+                            style: TextStyle(fontSize: 14)),
+                        SizedBox(height: 5),
+                        Text('Seller: ${widget.product.seller}',
+                            style: TextStyle(fontSize: 12, color: Colors.grey)),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      IconButton(
+                        icon:
+                            Icon(Icons.remove_shopping_cart, color: Colors.red),
+                        onPressed: widget.onRemove,
+                      ),
+                      SizedBox(height: 10),
+                      GestureDetector(
+                        onTap: () async{
+                          setState(() {
+                            isLoading = true;
+                          });
+                        await  FirebaseFirestore.instance
+                              .collection('orders')
+                              .doc(DateTime.now()
+                                  .millisecondsSinceEpoch
+                                  .toString())
+                              .set({
+                            'userId': userProvider.getUser.uid,
+                            'productId': widget.product.id,
+                            'sellerId': widget.product.seller,
+                            'createdAt': DateTime.now(),
+                          });
+                          setState(() {
+                            isLoading = false;
+                          });
+                          showSnackbar('Product ordered', context);
+                        },
+                        child: Container(
+                          height: 30,
+                          width: 50,
+                          child: Center(child: Text('Buy')),
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(6)),
+                        ),
+                      )
+                    ],
+                  ),
                 ],
               ),
             ),
-            IconButton(
-              icon: Icon(Icons.remove_shopping_cart, color: Colors.red),
-              onPressed: onRemove,
-            ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }

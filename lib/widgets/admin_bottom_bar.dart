@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:krushit_medical/admin/screens/admin_home.dart';
@@ -16,7 +15,11 @@ class _AdminBottomBArState extends State<AdminBottomBAr> {
   int _page = 0;
   late PageController pageController;
 
-  List<Widget> pageList = [const AdminHome(), const Analytics(), const Inbox()];
+  List<Widget> pageList = [
+    const AdminHome(), const SellerOrdersPage(),
+
+    // const Inbox()
+  ];
 
   @override
   void initState() {
@@ -72,15 +75,15 @@ class _AdminBottomBArState extends State<AdminBottomBAr> {
               ),
               label: 'Analytics',
               backgroundColor: Colors.white),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              const AssetImage('assets/icons/ic_inbox.png'),
-              size: 25,
-              color: (_page == 2) ? Colors.white : Colors.grey,
-            ),
-            label: 'Inbox',
-            backgroundColor: Colors.white,
-          ),
+          // BottomNavigationBarItem(
+          //   icon: ImageIcon(
+          //     const AssetImage('assets/icons/ic_inbox.png'),
+          //     size: 25,
+          //     color: (_page == 2) ? Colors.white : Colors.grey,
+          //   ),
+          //   label: 'Inbox',
+          //   backgroundColor: Colors.white,
+          // ),
         ],
         onTap: navigationTapped,
         currentIndex: _page,

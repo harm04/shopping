@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 Future<List<String>> pickImages() async {
   List<String> images = [];
@@ -15,4 +18,13 @@ Future<List<String>> pickImages() async {
     debugPrint(e.toString());
   }
   return images;
+}
+
+Future<File?> pickImage() async {
+  final ImagePicker picker = ImagePicker();
+  final imageFile = await picker.pickImage(source: ImageSource.gallery);
+  if (imageFile != null) {
+    return File(imageFile.path);
+  }
+  return null;
 }
