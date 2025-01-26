@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:krushit_medical/services/auth_services.dart';
 import 'package:krushit_medical/user/screens/auth/signup/signup.dart';
+import 'package:krushit_medical/user/screens/cart/cart.dart';
 import 'package:krushit_medical/user/screens/home/home.dart';
+import 'package:krushit_medical/utils/snackbar.dart';
 import 'package:krushit_medical/widgets/custom_buttom.dart';
 import 'package:krushit_medical/widgets/custom_textfield.dart';
 
@@ -26,9 +28,7 @@ class _SigninScreenState extends State<SigninScreen> {
 
   login() {
     authService.login(
-    
-        email: emailController.text,
-        password: passwordController.text);
+        email: emailController.text, password: passwordController.text);
   }
 
   @override
@@ -68,6 +68,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   height: 5,
                 ),
                 CustomTextfield(
+                  maxlength: 20,
                   type: TextInputType.emailAddress,
                   controller: emailController,
                   obsecureText: false,
@@ -86,6 +87,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 CustomTextfield(
                   type: TextInputType.text,
                   controller: passwordController,
+                  maxlength: 15,
                   obsecureText: true,
                   hintText: 'password',
                 ),
@@ -124,12 +126,21 @@ class _SigninScreenState extends State<SigninScreen> {
                 GestureDetector(
                   onTap: () async {
                     if (loginFormKey.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
                       await login();
+                      setState(() {
+                        isLoading = false;
+                      });
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return HomePage();
+                      }));
+                      showSnackbar('Success', context);
+                    } else {
+                      showSnackbar('Error', context);
                     }
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return HomePage();
-                    }));
                   },
                   child: const CustomButton(
                     buttonText: 'Login',

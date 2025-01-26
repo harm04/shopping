@@ -41,17 +41,18 @@ class _PostProductState extends State<PostProduct> {
   }
 
   List<String> productCategories = [
-    'Mobiles',
+    'Drugs',
     'Essentials',
     'Appliances',
     'Books',
-    'Fashion',
+    'krushit',
   ];
 
-  String category = 'Mobiles';
+  String category = 'Drugs';
   List<String> images = [
     'assets/images/medicine.png',
     'assets/images/tablets.png'
+    
   ];
 
   void sellProduct() {
@@ -170,6 +171,7 @@ class _PostProductState extends State<PostProduct> {
                     height: 20,
                   ),
                   CustomTextfield(
+                      maxlength: 20,
                       hintText: 'Product Name',
                       type: TextInputType.text,
                       controller: productcontroller,
@@ -179,6 +181,7 @@ class _PostProductState extends State<PostProduct> {
                     height: 10,
                   ),
                   CustomTextfield(
+                      maxlength: 150,
                     hintText: 'Product Description',
                     type: TextInputType.text,
                     controller: descriptioncontroller,
@@ -189,6 +192,7 @@ class _PostProductState extends State<PostProduct> {
                     height: 10,
                   ),
                   CustomTextfield(
+                    maxlength: 6,
                       hintText: 'Product Price',
                       type: TextInputType.number,
                       controller: pricecontroller,
@@ -197,6 +201,7 @@ class _PostProductState extends State<PostProduct> {
                     height: 10,
                   ),
                   CustomTextfield(
+                    maxlength: 50,
                       hintText: 'Product Quantity',
                       type: TextInputType.number,
                       controller: quantitycontroller,

@@ -16,7 +16,7 @@ class _SellerOrdersPageState extends State<SellerOrdersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ordered Products (Seller)'),
+        title: const Text('Ordered Products',style: TextStyle(color: Colors.white,fontSize: 20),),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance

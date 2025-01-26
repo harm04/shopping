@@ -25,7 +25,7 @@ class GlobalVariables {
       'image': 'assets/images/books.jpeg',
     },
     {
-      'title': 'Fashion',
+      'title': 'krushit',
       'image': 'assets/images/fashion.jpeg',
     },
   ];

@@ -74,6 +74,7 @@ class _AdminAuthPageState extends State<AdminAuthPage> {
                       height: 10,
                     ),
                     CustomTextfield(
+                      maxlength: 20,
                         hintText: 'Shop Name',
                         type: TextInputType.text,
                         controller: shopNameController,

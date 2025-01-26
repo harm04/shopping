@@ -6,18 +6,22 @@ class CustomTextfield extends StatelessWidget {
   final bool obsecureText;
   final TextInputType type;
   final int maxlines;
+  final int maxlength;
   const CustomTextfield(
       {super.key,
       required this.hintText,
       required this.type,
       required this.controller,
-      required this.obsecureText,this.maxlines=1});
+      required this.obsecureText,
+      this.maxlines = 1,
+      required this.maxlength});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       keyboardType: type,
+      maxLength: maxlength,
       obscureText: obsecureText,
       decoration: InputDecoration(
         hintText: 'Enter your $hintText',

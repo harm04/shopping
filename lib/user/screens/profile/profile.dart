@@ -3,6 +3,7 @@ import 'package:krushit_medical/provider/user_provider.dart';
 import 'package:krushit_medical/services/auth_services.dart';
 import 'package:krushit_medical/user/screens/auth/adminAuth/admin_auth.dart';
 import 'package:krushit_medical/user/screens/myOrders/my_orders.dart';
+import 'package:krushit_medical/widgets/change_address.dart';
 
 import 'package:provider/provider.dart';
 
@@ -98,40 +99,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const Divider(
             thickness: 3,
           ),
-          ListTile(
-            leading: Image.asset(
-              'assets/icons/ic_my_details.png',
-              height: 30,
+          // ListTile(
+          //   leading: Image.asset(
+          //     'assets/icons/ic_my_details.png',
+          //     height: 30,
+          //   ),
+          //   title: const Text('My Details'),
+          // ),
+          // const Divider(),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const ChangeAddress();
+              }));
+            },
+            child: ListTile(
+              leading: Image.asset(
+                'assets/icons/ic_my_address.png',
+                height: 30,
+              ),
+              title: const Text('Address Book'),
             ),
-            title: const Text('My Details'),
-          ),
-          const Divider(),
-          ListTile(
-            leading: Image.asset(
-              'assets/icons/ic_my_address.png',
-              height: 30,
-            ),
-            title: const Text('Address Book'),
           ),
           const Divider(
             thickness: 3,
           ),
-          ListTile(
-            leading: Image.asset(
-              'assets/icons/ic_faqs.png',
-              height: 30,
-            ),
-            title: const Text('FAQS'),
-          ),
-          const Divider(),
-          ListTile(
-            leading: Image.asset(
-              'assets/icons/ic_help_center.png',
-              height: 30,
-            ),
-            title: const Text('Help Center'),
-          ),
-          const Divider(),
+          // ListTile(
+          //   leading: Image.asset(
+          //     'assets/icons/ic_faqs.png',
+          //     height: 30,
+          //   ),
+          //   title: const Text('FAQS'),
+          // ),
+          // const Divider(),
+          // ListTile(
+          //   leading: Image.asset(
+          //     'assets/icons/ic_help_center.png',
+          //     height: 30,
+          //   ),
+          //   title: const Text('Help Center'),
+          // ),
+          // const Divider(),
           GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {

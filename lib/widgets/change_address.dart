@@ -68,6 +68,7 @@ class _ChangeAddressState extends State<ChangeAddress> {
                             height: 20,
                           ),
                           CustomTextfield(
+                            maxlength: 30,
                               hintText: 'Building name / Flat no.',
                               type: TextInputType.text,
                               controller: flatBuildingcontroller,
@@ -77,6 +78,7 @@ class _ChangeAddressState extends State<ChangeAddress> {
                             height: 10,
                           ),
                           CustomTextfield(
+                            maxlength: 30,
                             hintText: 'Area / Street',
                             type: TextInputType.text,
                             controller: areaStreetcontroller,
@@ -87,6 +89,7 @@ class _ChangeAddressState extends State<ChangeAddress> {
                             height: 10,
                           ),
                           CustomTextfield(
+                              maxlength: 10,
                               hintText: 'City / Town',
                               type: TextInputType.text,
                               controller: cityTowncontroller,
@@ -95,6 +98,7 @@ class _ChangeAddressState extends State<ChangeAddress> {
                             height: 10,
                           ),
                           CustomTextfield(
+                              maxlength: 6,
                               hintText: 'Pincode',
                               type: TextInputType.number,
                               controller: pincodecontroller,
