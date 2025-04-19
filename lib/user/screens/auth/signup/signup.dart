@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:krushit_medical/services/auth_services.dart';
 import 'package:krushit_medical/user/screens/auth/signin/signin.dart';
-import 'package:krushit_medical/user/screens/cart/cart.dart';
 import 'package:krushit_medical/user/screens/home/home.dart';
 import 'package:krushit_medical/utils/snackbar.dart';
 import 'package:krushit_medical/widgets/custom_buttom.dart';

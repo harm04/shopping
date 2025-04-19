@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+
 import 'package:krushit_medical/models/user_model.dart';
-import 'package:krushit_medical/utils/showOTPDialoug.dart';
-import 'package:krushit_medical/utils/snackbar.dart';
 
 class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
